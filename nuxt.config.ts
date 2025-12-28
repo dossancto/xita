@@ -2,8 +2,15 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    '@peterbud/nuxt-query'
   ],
+
+  nuxtQuery: {
+    devtools: true,
+
+    autoImports: ['useQuery', 'useMutation'],
+  },
 
   devtools: {
     enabled: true
