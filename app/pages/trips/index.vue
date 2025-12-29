@@ -1,27 +1,19 @@
 <script setup lang="ts">
+import { usePredictTaxiFare, type PredictTaxiFareAmountRequest } from '~/services/taxiFarePredict/taxiFarePredictComposible'
 import PredicTaxiFareAmountForm, { type PredicTaxiFareAmountFormData } from './components/forms/PredicTaxiFareAmountForm.vue'
 import FareIndicatorResult from './components/texts/FareIndicatorResult.vue'
 import FarePredictHeading from './components/texts/FarePredictHeading.vue'
 
-type Response = {
-  fareAmount: number
-}
+const req = ref<PredictTaxiFareAmountRequest | undefined>()
 
-const req = ref<PredicTaxiFareAmountFormData | undefined>(undefined)
-
-async function predictFareCall(): Promise<Response> {
-  return await $fetch('http://localhost:5264/predict', {
-    method: 'POST',
-    body: req.value
-  })
-}
-
-const { isPending, data, mutate } = useMutation({
-  mutationFn: predictFareCall,
-})
+const { isPending, data, mutate } = usePredictTaxiFare(req)
 
 async function submitForm(data: PredicTaxiFareAmountFormData) {
-  req.value = data
+  req.value = {
+    ...data,
+    tripTime: 10,
+    rateCode: '1',
+  }
   mutate()
 }
 </script>

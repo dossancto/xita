@@ -6,6 +6,12 @@ export default defineNuxtConfig({
     '@peterbud/nuxt-query'
   ],
 
+  runtimeConfig: {
+    public: {
+      taxiFarePredictApiBaseUrl: process.env.TAXI_FARE_API_BASE_URL
+    }
+  },
+
   nuxtQuery: {
     devtools: true,
 

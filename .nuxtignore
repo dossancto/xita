@@ -1,1 +1,2 @@
 app/pages/trips/components/**/*.vue
+app/pages/trips/services/**/*.vue
