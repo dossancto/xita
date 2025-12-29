@@ -2,18 +2,9 @@
 import { ref, watch } from 'vue'
 import * as yup from 'yup'
 import { UIcon } from '#components'
-
-const vendorOptions = [
-  { label: 'CMT', value: 'CMT' },
-  { label: 'VTS', value: 'VTS' }
-]
-
-const paymentOptions = [
-  { value: 'DIS', label: 'Discount', description: 'Discounted payment' },
-  { value: 'NOC', label: 'No Charge', description: 'No charge for this trip' },
-  { value: 'CRD', label: 'Credit Card', description: 'Pay with credit card' },
-  { value: 'CSH', label: 'Cash', description: 'Pay with cash' }
-]
+import SelectPaymentCardInput from './components/inputs/SelectPaymentCardInput.vue'
+import SelectPassengerCountInput from './components/inputs/SelectPassengerCountInput.vue'
+import SelectVendorIdInput from './components/inputs/SelectVendorIdInput.vue'
 
 const form = ref({
   vendorId: 'CMT',
@@ -74,7 +65,7 @@ watch(form, async () => {
   </div>
 
   <div class="flex justify-center min-h-screen">
-<UForm :state="form" :schema="schema" class="w-full max-w-md space-y-4">
+    <UForm :state="form" :schema="schema" class="w-full max-w-md space-y-4">
       <!-- Fare result -->
       <div class="w-full flex justify-center mb-4">
         <div class="text-4xl font-bold text-primary rounded-lg px-6 py-4">
@@ -84,22 +75,15 @@ watch(form, async () => {
 
       <UFormField label="Vendor Id" name="vendorId">
         <div class="grid grid-cols-2 gap-4">
-          <UCard v-for="option in vendorOptions" :key="option.value"
-            :class="[form.vendorId === option.value ? 'ring-2 ring-primary' : 'ring-1 ring-gray-200', 'cursor-pointer transition', isPending ? 'opacity-50 pointer-events-none' : '']"
-            @click="!isPending && (form.vendorId = option.value)">
-            <div class="font-semibold">{{ option.label }}</div>
-          </UCard>
+          <SelectVendorIdInput :selectedVendorId="form.vendorId" :isPending="isPending"
+            :onClick="(vendorId: string) => { form.vendorId = vendorId }" />
         </div>
       </UFormField>
 
       <UFormField label="Passenger Count" name="passengerCount">
         <div class="grid grid-cols-4 gap-2">
-          <UCard v-for="count in 4" :key="count"
-            :class="[form.passengerCount === count ? 'ring-2 ring-primary' : 'ring-1 ring-gray-200', 'cursor-pointer transition flex flex-col items-center py-2', isPending ? 'opacity-50 pointer-events-none' : '']"
-            @click="!isPending && (form.passengerCount = count)">
-            <UIcon name="i-heroicons-user" class="w-6 h-6 mb-1 text-primary" />
-            <div class="font-semibold">{{ count }} {{ count === 1 ? 'person' : 'people' }}</div>
-          </UCard>
+          <SelectPassengerCountInput :selectedPassengerCount="form.passengerCount" :isPending="isPending"
+            :onClick="(count: number) => { form.passengerCount = count }" />
         </div>
       </UFormField>
 
@@ -110,12 +94,8 @@ watch(form, async () => {
 
       <UFormField label="Payment Type" name="paymentType">
         <div class="grid grid-cols-2 gap-4">
-          <UCard v-for="option in paymentOptions" :key="option.value"
-            :class="[form.paymentType === option.value ? 'ring-2 ring-primary' : 'ring-1 ring-gray-200', 'cursor-pointer transition', isPending ? 'opacity-50 pointer-events-none' : '']"
-            @click="!isPending && (form.paymentType = option.value)">
-            <div class="font-semibold">{{ option.label }}</div>
-            <div class="text-xs text-gray-500">{{ option.description }}</div>
-          </UCard>
+          <SelectPaymentCardInput :selectedPaymentType="form.paymentType" :isPending="isPending"
+            :onClick="(paymentType: string) => { form.paymentType = paymentType }" />
         </div>
       </UFormField>
 
