@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import * as yup from 'yup'
 import { UIcon } from '#components'
 
@@ -52,6 +52,20 @@ const { isPending, data, mutate } = useMutation({
 async function submitForm() {
   mutate()
 }
+
+// Debounce logic
+let debounceTimeout: ReturnType<typeof setTimeout> | null = null
+watch(form, async () => {
+  if (debounceTimeout) clearTimeout(debounceTimeout)
+  debounceTimeout = setTimeout(async () => {
+    try {
+      await schema.validate(form.value, { abortEarly: false })
+      submitForm()
+    } catch (e) {
+      // Validation failed, do not submit
+    }
+  }, 0)
+}, { deep: true })
 </script>
 
 <template>
@@ -60,7 +74,7 @@ async function submitForm() {
   </div>
 
   <div class="flex justify-center min-h-screen">
-    <UForm :state="form" :schema="schema" @submit.prevent="submitForm" class="w-full max-w-md space-y-4">
+<UForm :state="form" :schema="schema" class="w-full max-w-md space-y-4">
       <!-- Fare result -->
       <div class="w-full flex justify-center mb-4">
         <div class="text-4xl font-bold text-primary rounded-lg px-6 py-4">
@@ -105,15 +119,7 @@ async function submitForm() {
         </div>
       </UFormField>
 
-      <div class="w-full flex justify-center">
-        <UButton type="submit" class="mt-4" :disabled="!!isPending">
-          <span v-if="isPending">
-            <UIcon name="i-heroicons-arrow-path" class="animate-spin w-5 h-5 mr-2" />
-            Predicting...
-          </span>
-          <span v-else>Submit</span>
-        </UButton>
-      </div>
+
 
     </UForm>
   </div>
