@@ -29,29 +29,14 @@ useSeoMeta({
   <UApp>
     <UHeader>
       <template #left>
-        <NuxtLink to="/">
-          <AppLogo class="w-auto h-6 shrink-0" />
-        </NuxtLink>
-
-        <TemplateMenu />
-      </template>
-
-      <template #right>
         <UColorModeButton />
-
-        <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
       </template>
     </UHeader>
-
     <UMain>
-      <NuxtPage />
+      <NuxtLayout name="main-layout">
+        <NuxtPage />
+      </NuxtLayout>
+
     </UMain>
 
     <USeparator icon="i-simple-icons-nuxtdotjs" />
@@ -64,14 +49,8 @@ useSeoMeta({
       </template>
 
       <template #right>
-        <UButton
-          to="https://github.com/nuxt-ui-templates/starter"
-          target="_blank"
-          icon="i-simple-icons-github"
-          aria-label="GitHub"
-          color="neutral"
-          variant="ghost"
-        />
+        <UButton to="https://github.com/nuxt-ui-templates/starter" target="_blank" icon="i-simple-icons-github"
+          aria-label="GitHub" color="neutral" variant="ghost" />
       </template>
     </UFooter>
   </UApp>

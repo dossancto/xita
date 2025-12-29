@@ -62,8 +62,8 @@ async function submitForm() {
   <div class="flex justify-center min-h-screen">
     <UForm :state="form" :schema="schema" @submit.prevent="submitForm" class="w-full max-w-md space-y-4">
       <!-- Fare result -->
-      <div v-if="data?.fareAmount" class="w-full flex justify-center mb-4">
-        <div class="text-4xl font-bold text-primary bg-primary/10 rounded-lg px-6 py-4 shadow">
+      <div class="w-full flex justify-center mb-4">
+        <div class="text-4xl font-bold text-primary rounded-lg px-6 py-4">
           ${{ data?.fareAmount.toFixed(2) }}
         </div>
       </div>
