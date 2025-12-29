@@ -27,11 +27,7 @@ useSeoMeta({
 
 <template>
   <UApp>
-    <UHeader>
-      <template #left>
-        <UColorModeButton />
-      </template>
-    </UHeader>
+    <UColorModeButton />
     <UMain>
       <NuxtLayout name="main-layout">
         <NuxtPage />
