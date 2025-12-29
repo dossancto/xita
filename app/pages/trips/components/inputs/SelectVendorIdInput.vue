@@ -14,7 +14,7 @@ const props = defineProps<{
 <template>
   <button @click="!isPending && (props.onClick(option.value))" v-for="option in vendorOptions" :key="option.value">
     <UCard
-      :class="[selectedVendorId === option.value ? 'ring-2 ring-primary' : 'ring-1 ring-gray-200', 'cursor-pointer transition', isPending ? 'opacity-50 pointer-events-none' : '']">
+      :class="[selectedVendorId === option.value ? 'ring-2 ring-primary' : 'ring-1 ring-gray-200 dark:ring-zinc-600', 'cursor-pointer transition', isPending ? 'opacity-50 pointer-events-none' : '']">
       <div class="font-semibold">{{ option.label }}</div>
     </UCard>
   </button>

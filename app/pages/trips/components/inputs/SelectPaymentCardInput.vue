@@ -15,7 +15,7 @@ const props = defineProps<{
 <template>
   <button v-for="option in paymentOptions" :key="option.value" @click="!isPending && props.onClick(option.value)">
     <UCard
-      :class="[selectedPaymentType === option.value ? 'ring-2 ring-primary' : 'ring-1 ring-gray-200', 'cursor-pointer transition', isPending ? 'opacity-50 pointer-events-none' : '']">
+      :class="[selectedPaymentType === option.value ? 'ring-2 ring-primary' : 'ring-1 ring-gray-200 dark:ring-zinc-600', 'cursor-pointer transition', isPending ? 'opacity-50 pointer-events-none' : '']">
       <div class="font-semibold">{{ option.label }}</div>
       <div class="text-xs text-gray-500">{{ option.description }}</div>
     </UCard>
